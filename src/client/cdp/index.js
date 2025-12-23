@@ -40,7 +40,7 @@ function getQuery() {
 }
 
 function initSocket() {
-  const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  const protocol = process.env.DEBUG_HOST.startsWith('https') ? 'wss:' : 'ws:';
   const host = process.env.DEBUG_HOST.replace(/^(http|https):\/\//ig, '');
   const socket = new ReconnectingWebSocket(`${protocol}//${host}/remote/debug/client/${getId()}?${getQuery()}`);
   const domain = new ChromeDomain({ socket });
